@@ -169,15 +169,18 @@ public class FinalProject {
 		tableImage.setSize(700, 400);
 		tableImage.setLocation(0, 0);
 		
+		
 		//Add deck of cards
-		JLabel deck = new JLabel(new ImageIcon("red_back.png"));
-		deck.setLocation(0, 0);
-		tablePanel.add(deck);
+		JLabel deck = createScaledImage("red_back.png", 80, 130);
+		deck.setSize(80, 130);
+		deck.setLocation(25, 150);
+		
 		tablePanel.add(deck, Integer.valueOf(100));
+		
 		
 		// Add the panel to the frame
 		frame.setContentPane(contentPane);
-
+		
 		
 		//size the window.
 		frame.pack();
