@@ -32,7 +32,20 @@ public class FinalProject {
 	 */
 	static JLabel userScoreNumber;
 	
+	static JPanel cardPanel2;
+	
+	static JPanel cardPanel;
+	
 	static JLabel computerScoreNumber;
+	
+	static int [] cardValue = {
+		1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4, 
+		5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,
+		9,9,9,9,10,10,10,10,10,10,10,10,
+		10,10,10,10,10,10,10,10}
+	    ;
+	
+	static int randomCard;
 	
 	static JLabel [] cards = {
 			createScaledImage("AC.png",100, 150),
@@ -165,30 +178,45 @@ public class FinalProject {
 		tableImage.setLocation(0, 0);
 		
 		//Add deck of cards
-		JLabel deck = createScaledImage("red_back.png", 80, 130);
-		deck.setSize(80, 130);
+		JLabel deck = createScaledImage("red_back.png", 100, 150);
+		deck.setSize(100, 150);
 		deck.setLocation(25, 150);
 		tablePanel.add(deck, Integer.valueOf(100));
 		
 		//Create user card panel
-		JPanel cardPanel = new JPanel();
+		cardPanel = new JPanel();
 		tablePanel.add(cardPanel, Integer.valueOf(501));
-		cardPanel.setSize(400, 100);
-//		cardPanel.setLocation();
+		cardPanel.setSize(400, 150);
+		cardPanel.setLocation(175, 200);
+		cardPanel.setOpaque(false);
+		cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.LINE_AXIS));
 		
 		//Create random cards(user)
-		JLabel randomCard; 
+		randomCardHandler(cards);
+		cardPanel.add(cards[randomCard]);
+		randomCardHandler(cards); 
+		cardPanel.add(cards[randomCard]);
 		
+		//Create computer card panel
+		cardPanel2 = new JPanel();
+		tablePanel.add(cardPanel2, Integer.valueOf(501));
+		cardPanel2.setSize(400, 150);
+		cardPanel2.setLocation(175, 0);
+		cardPanel2.setOpaque(false);
+		cardPanel2.setLayout(new BoxLayout(cardPanel2, BoxLayout.LINE_AXIS));
 		
+		//Add computer cards
+		cardPanel2.add(deck); 
+		cardPanel2.add(deck);
 		
-		
-		//Add user score
+		/*//Add user score
 		JLabel userScore = new JLabel("Score:");
 		userScore.setSize(150, 75);
 		userScore.setLocation(600, 350);
 		userScore.setForeground(Color.WHITE);
 		tablePanel.add(userScore);
 		tablePanel.setLayer(userScore, 200);
+		
 		
 		//add user score number
 		userScoreNumber = new JLabel("0");
@@ -213,6 +241,7 @@ public class FinalProject {
 		computerScoreNumber.setLocation(645, 0);
 		computerScoreNumber.setForeground(Color.WHITE);
 		tablePanel.setLayer(computerScoreNumber, 201);
+		*/
 		
 		//Create button Panel
 		JPanel buttonPanel = new JPanel();
@@ -221,6 +250,7 @@ public class FinalProject {
 		buttonPanel.setLocation(300, 355);
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 		tablePanel.setLayer(buttonPanel, 405);
+		buttonPanel.setOpaque(false);
 		
 		//Add card button
 		JButton addCard = new JButton("Hit");
@@ -236,9 +266,6 @@ public class FinalProject {
 		addCard.setLocation(100, 25); 
 		buttonPanel.add(noCard);
 		buttonPanel.add(Box.createRigidArea(new Dimension(5,0)));
-		
-		
-		//Card random generator(user)
 	
 		
 		
@@ -262,7 +289,14 @@ public class FinalProject {
 		Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return new JLabel(new ImageIcon(scaledImage));
 	}
-
+	
+	private static void randomCardHandler(JLabel [] cards) {
+		Random randomGenerator = new Random();
+		randomCard = randomGenerator.nextInt(53); 
+		cards [randomCard].setVisible(true);
+		cards [randomCard].setSize(80, 130);
+		
+	}
 
     /**
      * EVENT LISTENERS
@@ -270,30 +304,22 @@ public class FinalProject {
      * key presses, timer expirations)
      */
 	
-	private static void randomCard() {
-		Random randomGenerator = new Random();
-		int randomCard = randomGenerator.nextInt(53); 
-		cards [randomCard].setVisible(true);
-		
-			
-		}
 	
-	
-	
-	
+	/** Handles clicks on add card button */
 	private static class HitButtonHandler implements ActionListener {
 		public void actionPerformed (ActionEvent event) {
+			randomCardHandler(cards); 
+			cardPanel.add(cards[randomCard]);
+			cards[randomCard].setVisible(true);
 			
 		}
 	}
 	
-	
-	
 	/**Handles clicks on new game button */
     private static class NewGameHandler implements ActionListener {
         public void actionPerformed (ActionEvent event) {
-            // Set the score to 0
-        	//scoreLabel.setText("0");
+            
+        	
         }
     }
 	
