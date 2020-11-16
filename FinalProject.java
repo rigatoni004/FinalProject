@@ -35,6 +35,8 @@ public class FinalProject {
 	
 	static JButton addCard;
 	
+	static JButton noCard;
+	
 	static int userScore = 0;
 	
 	static int userValue = 0;
@@ -52,6 +54,8 @@ public class FinalProject {
 	static JLabel YouWin;
 	
 	static JLabel YouLose;
+	
+	static JLabel Draw;
 
 	static int [] cardValue = {
 			11,11,11,11,2,2,2,2,3,3,3,3,4,4,4,4, 
@@ -170,11 +174,6 @@ public class FinalProject {
 		rightPanel.add(newGameButton);
 		rightPanel.add(Box.createRigidArea(new Dimension(135, 10)));
 
-		//Make rules button
-		JButton rulesButton = new JButton("Rules");
-		rulesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		rightPanel.add(rulesButton);
-		rightPanel.add(Box.createRigidArea(new Dimension(135, 10)));
 
 		//Make quit button
 		JButton quitButton = new JButton("Quit");
@@ -277,6 +276,16 @@ public class FinalProject {
 		tablePanel.setLayer(YouLose, 201);
 		YouLose.setVisible(false);
 
+		//Add draw label
+		Draw = new JLabel("Draw!");
+		tablePanel.add(Draw);
+		Draw.setSize(400, 100);
+		Draw.setLocation(300,120);
+		Draw.setForeground(Color.WHITE);
+		Draw.setFont(Draw.getFont().deriveFont(32.0f));
+		tablePanel.setLayer(Draw, 201);
+		Draw.setVisible(false);
+		
 		//Create button Panel
 		JPanel buttonPanel = new JPanel();
 		tablePanel.add(buttonPanel, Integer.valueOf(500));
@@ -295,7 +304,7 @@ public class FinalProject {
 		buttonPanel.add(Box.createRigidArea(new Dimension(5,0)));
 
 		//Add no card button
-		JButton noCard = new JButton("Stand");
+		noCard = new JButton("Stand");
 		noCard.setPreferredSize(new Dimension(50, 25));
 		noCard.addActionListener(new StayButtonHandler());
 		addCard.setLocation(100, 25); 
@@ -360,20 +369,28 @@ public class FinalProject {
 		
 		while(computerValue < 17) {
 			computerCard();
-			winner();
+			
 			computerScore = Integer.parseInt(computerScoreNumber.getText());
 			computerScoreNumber.setText(String.valueOf(computerValue));
 		}
 		
+		winner();
 	}
 	
 	/** Detects who the winner is*/
 	private static void winner() {
-		if (userScore == 21 && userScore > computerScore || computerScore > 21) {
+		if ((userValue > computerValue && userValue <= 21) || (userValue <= 21 && computerValue > 21)) {
 			YouWin.setVisible(true);
 		}
-		if(computerScore == 21 && userScore < computerScore || userScore > 21) {
+		
+		else if((computerValue > userValue && computerValue <= 21) || userValue > 21) {
+			
 			YouLose.setVisible(true); 
+		}
+		
+		
+		else {
+			Draw.setVisible(true);
 		}
 		
 	}
@@ -390,28 +407,25 @@ public class FinalProject {
 		public void actionPerformed (ActionEvent event) {
 			dealCard();
 			
-			if (userScore >= 21) {
-				addCard.setEnabled(false);
-				dealerRules();
-				winner();
-				computerScore = Integer.parseInt(computerScoreNumber.getText());
-				computerScoreNumber.setText(String.valueOf(computerValue));
-			}
-			
 			userScore = Integer.parseInt(userScoreNumber.getText());
         	userScoreNumber.setText(String.valueOf(userValue));
-			
+        	
+			if (userValue >= 21) {
+				addCard.setEnabled(false);
+				noCard.setEnabled(false);
+				dealerRules();
+				
+			}
 		}
 	}
 	
 	/** Handles clicks on the stay button */
 	private static class StayButtonHandler implements ActionListener {
 		public void actionPerformed (ActionEvent event) {
+			addCard.setEnabled(false);
+			noCard.setEnabled(false);
 			dealerRules();
-			winner();
 			
-			computerScore = Integer.parseInt(computerScoreNumber.getText());
-			computerScoreNumber.setText(String.valueOf(computerValue));
 			
 		}
 	}
@@ -421,7 +435,17 @@ public class FinalProject {
 		public void actionPerformed (ActionEvent event) {
 			userScoreNumber.setText("0");
 			computerScoreNumber.setText("0");
+			userValue = 0;
+			computerValue = 0;
+			YouWin.setVisible(false);
+			YouLose.setVisible(false);
+			Draw.setVisible(false);
+			addCard.setEnabled(true);
+			noCard.setEnabled(true);
+			cardPanel.removeAll();
+			cardPanel2.removeAll();
 			shuffle();
+			dealCard();
 			dealCard();
 			
 		}
