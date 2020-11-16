@@ -1,8 +1,9 @@
 /*
  * Programmer: Riley Wilson
- * Date: 11/13/2020
+ * Date: 11/16/2020
  * Purpose: To run a card game of blackjack
  */
+
 // Import the GUI libraries
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,19 +32,32 @@ public class FinalProject {
 	 * multiple methods.
 	 */
 	static JLabel userScoreNumber;
+	
+	static JButton addCard;
+	
+	static int userScore = 0;
+	
+	static int userValue = 0;
+	
+	static int computerValue = 0;
 
 	static JPanel cardPanel2;
 
 	static JPanel cardPanel;
 
 	static JLabel computerScoreNumber;
+	
+	static int computerScore = 0; 
+	
+	static JLabel YouWin;
+	
+	static JLabel YouLose;
 
 	static int [] cardValue = {
-			1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4, 
+			11,11,11,11,2,2,2,2,3,3,3,3,4,4,4,4, 
 			5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,
 			9,9,9,9,10,10,10,10,10,10,10,10,
-			10,10,10,10,10,10,10,10}
-	;
+			10,10,10,10,10,10,10,10};
 
 	static int nextCard = 0;
 
@@ -207,15 +221,15 @@ public class FinalProject {
 		cardPanel2.setLayout(new BoxLayout(cardPanel2, BoxLayout.LINE_AXIS));
 
 		//Add computer cards
+		
 
-
-		/*//Add user score
-		JLabel userScore = new JLabel("Score:");
-		userScore.setSize(150, 75);
-		userScore.setLocation(600, 350);
-		userScore.setForeground(Color.WHITE);
-		tablePanel.add(userScore);
-		tablePanel.setLayer(userScore, 200);
+		//Add user score
+		JLabel userScoreLabel = new JLabel("Score:");
+		userScoreLabel.setSize(150, 75);
+		userScoreLabel.setLocation(600, 350);
+		userScoreLabel.setForeground(Color.WHITE);
+		tablePanel.add(userScoreLabel);
+		tablePanel.setLayer(userScoreLabel, 200);
 
 
 		//add user score number
@@ -225,14 +239,15 @@ public class FinalProject {
 		userScoreNumber.setLocation(645, 350);
 		userScoreNumber.setForeground(Color.WHITE);
 		tablePanel.setLayer(userScoreNumber, 200);
+		
 
 		//Add computer score
-		JLabel computerScore = new JLabel("Score:");
-		tablePanel.add(computerScore);
-		computerScore.setSize(150, 50);
-		computerScore.setLocation(600, 0);
-		computerScore.setForeground(Color.WHITE);
-		tablePanel.setLayer(computerScore, 201);
+		JLabel computerScoreLabel = new JLabel("Score:");
+		tablePanel.add(computerScoreLabel);
+		computerScoreLabel.setSize(150, 50);
+		computerScoreLabel.setLocation(600, 0);
+		computerScoreLabel.setForeground(Color.WHITE);
+		tablePanel.setLayer(computerScoreLabel, 201);
 
 		//Add computer score number
 		computerScoreNumber = new JLabel("0");
@@ -241,7 +256,26 @@ public class FinalProject {
 		computerScoreNumber.setLocation(645, 0);
 		computerScoreNumber.setForeground(Color.WHITE);
 		tablePanel.setLayer(computerScoreNumber, 201);
-		 */
+		
+		//Add Win label
+		YouWin = new JLabel("You Win!");
+		tablePanel.add(YouWin);
+		YouWin.setSize(400, 100);
+		YouWin.setLocation(300,120);
+		YouWin.setForeground(Color.WHITE);
+		YouWin.setFont(YouWin.getFont().deriveFont(32.0f));
+		tablePanel.setLayer(YouWin, 201);
+		YouWin.setVisible(false);
+		
+		//Add lose label
+		YouLose = new JLabel("You Lose!");
+		tablePanel.add(YouLose);
+		YouLose.setSize(400, 100);
+		YouLose.setLocation(300,120);
+		YouLose.setForeground(Color.WHITE);
+		YouLose.setFont(YouLose.getFont().deriveFont(32.0f));
+		tablePanel.setLayer(YouLose, 201);
+		YouLose.setVisible(false);
 
 		//Create button Panel
 		JPanel buttonPanel = new JPanel();
@@ -253,7 +287,7 @@ public class FinalProject {
 		buttonPanel.setOpaque(false);
 
 		//Add card button
-		JButton addCard = new JButton("Hit");
+		addCard = new JButton("Hit");
 		addCard.setPreferredSize(new Dimension(50, 25));
 		addCard.addActionListener(new HitButtonHandler());
 		addCard.setLocation(100, 0);
@@ -290,7 +324,8 @@ public class FinalProject {
 		Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		return new JLabel(new ImageIcon(scaledImage));
 	}
-
+	
+	/**Randomizes the order of the cards */
 	private static void shuffle () {
 		Random rand = new Random();
 		for (int index = 0; index < cards.length; index++) {
@@ -308,9 +343,41 @@ public class FinalProject {
 	/**Generates and shuffles random cards*/
 	private static void dealCard() {
 		cardPanel.add(cards[nextCard]);
+		cardPanel.validate(); 
+		userValue += cardValue[nextCard];
 		nextCard++;
 	}
-
+	
+	/**Generates and shuffles random cards(computer) */
+	private static void computerCard() {
+		cardPanel2.add(cards[nextCard]);
+		cardPanel2.validate();
+		computerValue += cardValue[nextCard];
+		nextCard++;
+	}
+	
+	private static void dealerRules() {
+		
+		while(computerValue < 17) {
+			computerCard();
+			winner();
+			computerScore = Integer.parseInt(computerScoreNumber.getText());
+			computerScoreNumber.setText(String.valueOf(computerValue));
+		}
+		
+	}
+	
+	/** Detects who the winner is*/
+	private static void winner() {
+		if (userScore == 21 && userScore > computerScore || computerScore > 21) {
+			YouWin.setVisible(true);
+		}
+		if(computerScore == 21 && userScore < computerScore || userScore > 21) {
+			YouLose.setVisible(true); 
+		}
+		
+	}
+	
 	/**
 	 * EVENT LISTENERS
 	 * Subclasses that handle events (button clicks, mouse clicks and moves,
@@ -322,20 +389,41 @@ public class FinalProject {
 	private static class HitButtonHandler implements ActionListener {
 		public void actionPerformed (ActionEvent event) {
 			dealCard();
+			
+			if (userScore >= 21) {
+				addCard.setEnabled(false);
+				dealerRules();
+				winner();
+				computerScore = Integer.parseInt(computerScoreNumber.getText());
+				computerScoreNumber.setText(String.valueOf(computerValue));
+			}
+			
+			userScore = Integer.parseInt(userScoreNumber.getText());
+        	userScoreNumber.setText(String.valueOf(userValue));
+			
 		}
 	}
+	
+	/** Handles clicks on the stay button */
 	private static class StayButtonHandler implements ActionListener {
 		public void actionPerformed (ActionEvent event) {
-
-
+			dealerRules();
+			winner();
+			
+			computerScore = Integer.parseInt(computerScoreNumber.getText());
+			computerScoreNumber.setText(String.valueOf(computerValue));
+			
 		}
 	}
 
 	/**Handles clicks on new game button */
 	private static class NewGameHandler implements ActionListener {
 		public void actionPerformed (ActionEvent event) {
+			userScoreNumber.setText("0");
+			computerScoreNumber.setText("0");
 			shuffle();
-
+			dealCard();
+			
 		}
 	}
 
