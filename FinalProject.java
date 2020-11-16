@@ -66,70 +66,70 @@ public class FinalProject {
 	static int nextCard = 0;
 
 	static JLabel [] cards = {
-			createScaledImage("AC.png",100, 150),
-			createScaledImage("AD.png",100, 150),
-			createScaledImage("AH.png",100, 150),
-			createScaledImage("AS.png",100, 150),
+			createScaledImage("AC.png",75, 120),
+			createScaledImage("AD.png",75, 120),
+			createScaledImage("AH.png",75, 120),
+			createScaledImage("AS.png",75, 120),
 
-			createScaledImage("2C.png",100, 150),
-			createScaledImage("2D.png",100, 150),
-			createScaledImage("2H.png",100, 150),
-			createScaledImage("2S.png",100, 150),
+			createScaledImage("2C.png",75, 120),
+			createScaledImage("2D.png",75, 120),
+			createScaledImage("2H.png",75, 120),
+			createScaledImage("2S.png",75, 120),
 
-			createScaledImage("3C.png",100, 150),
-			createScaledImage("3D.png",100, 150),
-			createScaledImage("3H.png",100, 150),
-			createScaledImage("3S.png",100, 150),
+			createScaledImage("3C.png",75, 120),
+			createScaledImage("3D.png",75, 120),
+			createScaledImage("3H.png",75, 120),
+			createScaledImage("3S.png",75, 120),
 
-			createScaledImage("4C.png",100, 150),
-			createScaledImage("4D.png",100, 150),
-			createScaledImage("4H.png",100, 150),
-			createScaledImage("4S.png",100, 150),
+			createScaledImage("4C.png",75, 120),
+			createScaledImage("4D.png",75, 120),
+			createScaledImage("4H.png",75, 120),
+			createScaledImage("4S.png",75, 120),
 
-			createScaledImage("5C.png",100, 150),
-			createScaledImage("5D.png",100, 150),
-			createScaledImage("5H.png",100, 150),
-			createScaledImage("5S.png",100, 150),
-
-			createScaledImage("6C.png",100, 150),
-			createScaledImage("6D.png",100, 150),
-			createScaledImage("6H.png",100, 150),
-			createScaledImage("6S.png",100, 150),
-
-			createScaledImage("7C.png",100, 150),
-			createScaledImage("7D.png",100, 150),
-			createScaledImage("7H.png",100, 150),
-			createScaledImage("7S.png",100, 150),
-
-			createScaledImage("8C.png",100, 150),
-			createScaledImage("8D.png",100, 150),
-			createScaledImage("8H.png",100, 150),
-			createScaledImage("8S.png",100, 150),
-
-			createScaledImage("9C.png",100, 150),
-			createScaledImage("9D.png",100, 150),
-			createScaledImage("9H.png",100, 150),
-			createScaledImage("9S.png",100, 150),
-
-			createScaledImage("10C.png",100, 150),
-			createScaledImage("10D.png",100, 150),
-			createScaledImage("10H.png",100, 150),
-			createScaledImage("10S.png",100, 150),
-
-			createScaledImage("JC.png",100, 150),
-			createScaledImage("JD.png",100, 150),
-			createScaledImage("JH.png",100, 150),
-			createScaledImage("JS.png",100, 150),
-
-			createScaledImage("QC.png",100, 150),
-			createScaledImage("QD.png",100, 150),
-			createScaledImage("QH.png",100, 150),
-			createScaledImage("QS.png",100, 150),
-
-			createScaledImage("KC.png",100, 150),
-			createScaledImage("KD.png",100, 150),
-			createScaledImage("KH.png",100, 150),
-			createScaledImage("KS.png",100, 150),
+			createScaledImage("5C.png",75, 120),
+			createScaledImage("5D.png",75, 120),
+			createScaledImage("5H.png",75, 120),
+			createScaledImage("5S.png",75, 120),
+			
+			createScaledImage("6C.png",75, 120),
+			createScaledImage("6D.png",75, 120),
+			createScaledImage("6H.png",75, 120),
+			createScaledImage("6S.png",75, 120),
+			
+			createScaledImage("7C.png",75, 120),
+			createScaledImage("7D.png",75, 120),
+			createScaledImage("7H.png",75, 120),
+			createScaledImage("7S.png",75, 120),
+			
+			createScaledImage("8C.png",75, 120),
+			createScaledImage("8D.png",75, 120),
+			createScaledImage("8H.png",75, 120),
+			createScaledImage("8S.png",75, 120),
+			
+			createScaledImage("9C.png",75, 120),
+			createScaledImage("9D.png",75, 120),
+			createScaledImage("9H.png",75, 120),
+			createScaledImage("9S.png",75, 120),
+			
+			createScaledImage("10C.png",75, 120),
+			createScaledImage("10D.png",75, 120),
+			createScaledImage("10H.png",75, 120),
+			createScaledImage("10S.png",75, 120),
+			
+			createScaledImage("JC.png",75, 120),
+			createScaledImage("JD.png",75, 120),
+			createScaledImage("JH.png",75, 120),
+			createScaledImage("JS.png",75, 120),
+			
+			createScaledImage("QC.png",75, 120),
+			createScaledImage("QD.png",75, 120),
+			createScaledImage("QH.png",75, 120),
+			createScaledImage("QS.png",75, 120),
+			
+			createScaledImage("KC.png",75, 120),
+			createScaledImage("KD.png",75, 120),
+			createScaledImage("KH.png",75, 120),
+			createScaledImage("KS.png",75, 120),
 	};
 
 	static JFrame frame;
@@ -193,7 +193,7 @@ public class FinalProject {
 		tableImage.setLocation(0, 0);
 
 		//Add deck of cards
-		JLabel deck = createScaledImage("red_back.png", 100, 150);
+		JLabel deck = createScaledImage("red_back.png", 75, 120);
 		deck.setSize(100, 150);
 		deck.setLocation(25, 150);
 		tablePanel.add(deck, Integer.valueOf(100));
@@ -312,17 +312,15 @@ public class FinalProject {
 		buttonPanel.add(Box.createRigidArea(new Dimension(5,0)));
 
 
-
 		// Add the panel to the frame
 		frame.setContentPane(contentPane);
-
 
 		//size the window.
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	
 	}
-
 
 	/**
 	 * HELPER METHODS
